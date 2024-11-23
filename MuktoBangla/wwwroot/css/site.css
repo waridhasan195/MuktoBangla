@@ -20,3 +20,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.e-bigger {
+    font-size: x-large;
+}
+
+#AddTagButton{
+    background-color: white;
+}
+
+#textArea{
+    height:100px;
+}
+/*.e-float-input.control-wrapper-Tag .e-float-text::after {
+    content: '*';
+    color: red;
+}*/

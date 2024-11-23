@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MuktoBangla.Data;
+using MuktoBangla.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MuktoBanglaDbContext>(options 
     => options.UseSqlServer(builder.Configuration.GetConnectionString("MuktoBanglaConnectionString")));
 
+
+
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpQnxbf1x0ZFxMY11bRXFPIiBoS35RckRiW35cc3ZTRWJdVEV2");
+
+
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 var app = builder.Build();
 

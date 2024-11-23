@@ -7,17 +7,20 @@ namespace MuktoBangla.Controllers
 {
     public class AdminTagController : Controller
     {
-        private readonly TagRepository tagRepository;
+        private readonly ITagRepository tagRepository;
 
-        public AdminTagController(TagRepository tagRepository)
+        public AdminTagController(ITagRepository tagRepository)
         {
             this.tagRepository = tagRepository;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        
         public async Task<IActionResult> AddTag(AddTagRequest addTagRequest)
         {
             if(ModelState.IsValid == false)
@@ -41,7 +44,7 @@ namespace MuktoBangla.Controllers
                     //Add Error Notification
                 }
 
-                return View(addTag);
+                return View(new AddTagRequest());
             }
         }
     }
