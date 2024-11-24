@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MuktoBangla.Model.Domain.Tag>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["All Tags"] = "All Tags";
+}
+
+<div class="container">
+    <div class="row justify-content-md-center mt-5">
+        <div class="col col-lg-2">
+        </div>
+
+            <div class="col col-lg-8 e-bigger" style="background-color:white">
+                <div class="container">
+                    <div><h4>Tag & Descriptions</h4></div>
+                <div style="padding:0px 0px 20px 0px">
+                    <ejs-textbox id="searchInput" placeholder="Search text" width="220">
+                    </ejs-textbox>
+                    <ejs-button style="margin-left: 10px" class="custom" id="SearchButton" content="Search">
+                    </ejs-button>
+                </div>
+
+                <ejs-grid id="Search" dataSource="@Model" height="400px" allowPaging="true" allowSorting="true">
+                    <e-grid-pagesettings template="#template" pageSize="7"></e-grid-pagesettings>
+                    <e-grid-columns>
+                        <e-grid-column field="Name" headerText="Tag Name" width="30" textAlign="Center"></e-grid-column>
+                        <e-grid-column field="TagDescription" headerText="Descriptions" format="C2" textAlign="Left" width="150"></e-grid-column>
+                        <e-grid-column field="" headerText="Actions" textAlign="Right" width="40" template="#actionColumnTemplate"></e-grid-column>
+                    </e-grid-columns>
+                    
+                </ejs-grid>
+
+                <script>
+                    document.getElementById('SearchButton').addEventListener('click', () => {
+                        var gridObj = document.getElementById("Search").ej2_instances[0];
+                        const searchText = document.getElementById("searchInput").ej2_instances[0].value;
+                        gridObj.search(searchText);
+                    });
+                </script>
+                <script id="actionColumnTemplate" type="text/x-template">
+                    <div class="d-flex flex-row justify-content-start">
+                        <a class="btn btn-sm" href="/AdminTag/UpdateTag/${Id}">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+
+                    </div>
+
+                </script>
+                <script id="template" type="text/x-template">
+                    <div class="e-pagertemplate">
+                        <div class="col-lg-12 control-section">
+                            <div class="content-wrapper">
+                                <input id="currentPage" type="text" value=${currentPage}>
+                            </div>
+                        </div>
+
+                        <div id="totalPages" class="e-pagertemplatemessage" style="margin-top:5px;margin-left:30px;border: none; display: inline-block ">
+                            <span class="e-pagenomsg">${currentPage} of ${totalPages} pages (${totalRecordsCount} items)</span>
+                        </div>
+                    </div>
+                </script>
+
+                </div>
+            </div>
+
+        <div class="col col-lg-2">
+        </div>
+    </div>
+
+</div>

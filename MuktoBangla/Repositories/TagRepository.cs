@@ -1,4 +1,5 @@
-﻿using MuktoBangla.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MuktoBangla.Data;
 using MuktoBangla.Model.Domain;
 
 namespace MuktoBangla.Repositories
@@ -19,29 +20,36 @@ namespace MuktoBangla.Repositories
             return tag;
         }
 
-        public Task<Tag> DeleteTagAsync(Guid Id)
+        public Task<Tag?> DeleteTagAsync(Guid Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Tag> EditTagAsync(Tag tag)
+        public async Task<IEnumerable<Tag>> GetAllTagsAsync()
         {
-            throw new NotImplementedException();
+            return await muktoBanglaDbContext.Tags.ToListAsync();
+
         }
 
-        public Task<IEnumerable<Tag>> GetAllTagsAsync()
+        public async Task<Tag?> GetSingelTagAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            return await muktoBanglaDbContext.Tags.FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public Task<Tag> GetSingelTagAsync(Guid Id)
+        public async Task<Tag?> UpdateTagAsync(Tag tag)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Tag> UpdateTagAsync(Tag tag)
-        {
-            throw new NotImplementedException();
+            var existingTag = await muktoBanglaDbContext.Tags.FindAsync(tag.Id);
+            if (existingTag != null)
+            {
+                existingTag.Name = tag.Name;
+                existingTag.TagDescription = tag.TagDescription;
+                await muktoBanglaDbContext.SaveChangesAsync();
+                return existingTag;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

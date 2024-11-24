@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using MuktoBangla.Model.Domain;
 using MuktoBangla.Model.ViewModels;
 using MuktoBangla.Repositories;
@@ -15,12 +16,12 @@ namespace MuktoBangla.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult AddTag()
         {
             return View();
         }
 
-        
+        [HttpPost]
         public async Task<IActionResult> AddTag(AddTagRequest addTagRequest)
         {
             if(ModelState.IsValid == false)
@@ -43,8 +44,68 @@ namespace MuktoBangla.Controllers
                 {
                     //Add Error Notification
                 }
+                return RedirectToAction("GetAllTag");
+            }
+        }
 
-                return View(new AddTagRequest());
+        [HttpGet]
+        public async Task<IActionResult> GetAllTag()
+        {
+            var TagList = await tagRepository.GetAllTagsAsync();
+            if(TagList == null)
+            {
+                return View();
+            }
+            return View(TagList);
+            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateTag(Guid Id)
+        {
+            var UpdateTag = await tagRepository.GetSingelTagAsync(Id);
+            if(UpdateTag != null)
+            {
+                var UpdateTagRequest = new UpdateTagRequest
+                {
+                    Id = UpdateTag.Id,
+                    Name = UpdateTag.Name,
+                    TagDescription = UpdateTag.TagDescription
+                };
+                return View(UpdateTagRequest);
+            }
+            else
+            {
+                return View(null);
+            }
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>UpdateTag(UpdateTagRequest updateTagRequest)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return View(updateTagRequest);
+            }
+            else
+            {
+                var UpdateTag = new Tag
+                {
+                    Id = updateTagRequest.Id,
+                    Name = updateTagRequest.Name,
+                    TagDescription = updateTagRequest.TagDescription
+                };
+                var updateTagcheck = await tagRepository.UpdateTagAsync(UpdateTag);
+                if (updateTagcheck != null)
+                {
+                    //Update Success Notification
+                }
+                else
+                {
+                    //Update Error Notification
+                }
+                return RedirectToAction("GetAllTag");
             }
         }
     }
