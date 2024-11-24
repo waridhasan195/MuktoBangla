@@ -108,5 +108,17 @@ namespace MuktoBangla.Controllers
                 return RedirectToAction("GetAllTag");
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(UpdateTagRequest updateTagRequest)
+        {
+            var deleteTag = await tagRepository.DeleteTagAsync(updateTagRequest.Id);
+            if (deleteTag != null)
+            {
+                return RedirectToAction("GetAllTag");
+            }
+            return RedirectToAction("GetAllTag");
+        }
     }
 }

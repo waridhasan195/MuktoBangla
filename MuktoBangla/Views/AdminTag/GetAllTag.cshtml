@@ -21,8 +21,9 @@
                     </ejs-button>
                 </div>
 
-                <ejs-grid id="Search" dataSource="@Model" height="400px" allowPaging="true" allowSorting="true">
-                    <e-grid-pagesettings template="#template" pageSize="7"></e-grid-pagesettings>
+                <ejs-grid id="Search" dataSource="@Model" height="400" allowPaging="true" allowSorting="true">
+                    <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
+                    
                     <e-grid-columns>
                         <e-grid-column field="Name" headerText="Tag Name" width="30" textAlign="Center"></e-grid-column>
                         <e-grid-column field="TagDescription" headerText="Descriptions" format="C2" textAlign="Left" width="150"></e-grid-column>
@@ -43,24 +44,17 @@
                         <a class="btn btn-sm" href="/AdminTag/UpdateTag/${Id}">
                             <i class="fa-solid fa-pencil"></i>
                         </a>
-
-                    </div>
-
-                </script>
-                <script id="template" type="text/x-template">
-                    <div class="e-pagertemplate">
-                        <div class="col-lg-12 control-section">
-                            <div class="content-wrapper">
-                                <input id="currentPage" type="text" value=${currentPage}>
-                            </div>
-                        </div>
-
-                        <div id="totalPages" class="e-pagertemplatemessage" style="margin-top:5px;margin-left:30px;border: none; display: inline-block ">
-                            <span class="e-pagenomsg">${currentPage} of ${totalPages} pages (${totalRecordsCount} items)</span>
-                        </div>
+                        <form method="post" action="/AdminTag/Delete/${Id}">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+                            onclick="return confirm(&quot; Are you sure to delete this record ?&quot;)"
+                            ><i class="fa-solid fa-trash-can fa-lg text-dande"></i>
+                            </button>
+                    
+                        </form>
+                        
                     </div>
                 </script>
-
                 </div>
             </div>
 

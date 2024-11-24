@@ -20,9 +20,16 @@ namespace MuktoBangla.Repositories
             return tag;
         }
 
-        public Task<Tag?> DeleteTagAsync(Guid Id)
+        public async Task<Tag?> DeleteTagAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var existingTag = await muktoBanglaDbContext.Tags.FindAsync(Id);
+            if (existingTag != null)
+            {
+                muktoBanglaDbContext.Tags.Remove(existingTag);
+                await muktoBanglaDbContext.SaveChangesAsync();
+                return existingTag;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Tag>> GetAllTagsAsync()
