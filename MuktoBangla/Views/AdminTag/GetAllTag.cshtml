@@ -11,14 +11,24 @@
         <div class="col col-lg-2">
         </div>
 
-            <div class="col col-lg-8 e-bigger" style="background-color:white">
+            <div class="col col-lg-10 e-bigger" style="background-color:white">
                 <div class="container">
                     <div><h4>Tag & Descriptions</h4></div>
-                <div style="padding:0px 0px 20px 0px">
-                    <ejs-textbox id="searchInput" placeholder="Search text" width="220">
-                    </ejs-textbox>
-                    <ejs-button style="margin-left: 10px" class="custom" id="SearchButton" content="Search">
-                    </ejs-button>
+                <div style="padding:0px 0px 20px 0px" class="container d-flex">
+                    <div class="p-2 flex-grow-1">
+                        <ejs-textbox id="searchInput" placeholder="Search text" width="220">
+                        </ejs-textbox>
+                        <ejs-button style="margin-left: 8px" class="custom" id="SearchButton" content="Search">
+                        </ejs-button>
+                    </div>
+                    <div class="p-1">
+                        <ejs-button id="round" class="hovertext" cssClass="e-round" title="Add Tag and Description" iconCss="e-icons e-plus e-large" isPrimary="true">
+                            
+                        </ejs-button>
+                        
+
+                    </div>
+
                 </div>
 
                 <ejs-grid id="Search" dataSource="@Model" height="400" allowPaging="true" allowSorting="true">
@@ -46,7 +56,7 @@
                         </a>
                         <form method="post" action="/AdminTag/Delete/${Id}">
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+                            <button type="submit" class="btn btn-sm btn-link no-a-decoration" 
                             onclick="return confirm(&quot; Are you sure to delete this record ?&quot;)"
                             ><i class="fa-solid fa-trash-can fa-lg text-dande"></i>
                             </button>
@@ -55,6 +65,13 @@
                         
                     </div>
                 </script>
+
+                <script>
+                        document.getElementById("round").addEventListener('click', function () {
+                        location.href = '@Url.Action("AddTag", "AdminTag")';
+                    });
+                </script>
+
                 </div>
             </div>
 

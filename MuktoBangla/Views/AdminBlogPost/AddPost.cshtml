@@ -1,0 +1,87 @@
+﻿@model MuktoBangla.Model.ViewModels.AddBlogPostRequest
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <div class="container">
+        <div class="row justify-content-md-center mt-5">
+            <div class="col col-lg-2">
+            </div>
+
+            <form asp-controller="AdminBlogPost" asp-action="AddPost" method="post">
+                <div class="col col-lg-6" style="background-color:white">
+
+                    <div class="control-section">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-textbox width="320" id="smaller-textbox1" ejs-for="Heading" placeholder="Post Heading" cssClass="e-small" floatLabelType="Auto"></ejs-textbox>
+                            <span asp-validation-for="Heading" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-section">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-textbox width="360" id="smaller-textbox2" ejs-for="ShortDescription" placeholder="Short Description" cssClass="e-small" floatLabelType="Auto"></ejs-textbox>
+                            <span asp-validation-for="ShortDescription" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-textbox width="320" id="smaller-textbox3" ejs-for="Author" placeholder="Author" cssClass="e-small" floatLabelType="Auto"></ejs-textbox>
+                            <span asp-validation-for="Author" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-textbox width="320" id="smaller-textbox4" ejs-for="PageTitle" placeholder="PageTitle" cssClass="e-small" floatLabelType="Auto"></ejs-textbox>
+                            <span asp-validation-for="PageTitle" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+                    <div class="control-section mb-3">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-textbox width="320" id="smaller-textbox5" ejs-for="UrlHandle" placeholder="UrlHandle" cssClass="e-small" floatLabelType="Auto"></ejs-textbox>
+                            <span asp-validation-for="UrlHandle" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+                    <div class="control-section mb-3">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-datepicker id="datepicker" ejs-for="PublishDate" width="130"></ejs-datepicker>
+                        </div>
+                    </div>
+                    <div class="control-section ">
+                        <div class="control_wrapper_Tag TextBox-control-section container">
+                            <ejs-checkbox id="default" label="Is Visiblle ?" checked="true" ejs-for="Visible"></ejs-checkbox>
+                            <span asp-validation-for="Visible" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-section mb-3">
+                        <div class="control_wrapper TextArea-control-section container">
+                            <ejs-textarea width="390" id="smaller-textbox6" ejs-for="Description" placeholder="Content" cssClass="e-small" floatLabelType="Auto"></ejs-textarea>
+                            <span asp-validation-for="Description" class="text-danger" style="font-size:small"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-section mb-3" style="width:300px">
+                        <div class="control_wrapper TextArea-control-section container">
+                            <label class="form-label">Tags</label>
+                            <select class="form-select" asp-items="@Model.Tags" asp-for="SelectedTags"></select>
+                        </div>
+                    </div>
+                    <div class="control-section container mt-3">
+                        <ejs-button id="AddPostButton" content="Add Post" type="submit"></ejs-button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col col-lg-4">
+            </div>
+        </div>
+
+    </div>
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
