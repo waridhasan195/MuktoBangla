@@ -1,4 +1,5 @@
-﻿using MuktoBangla.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MuktoBangla.Data;
 using MuktoBangla.Model.Domain;
 
 namespace MuktoBangla.Repositories
@@ -24,9 +25,9 @@ namespace MuktoBangla.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<BlogPost>> GetAllBlogPostAssync()
+        public async Task<IEnumerable<BlogPost>> GetAllBlogPostAssync()
         {
-            throw new NotImplementedException();
+            return await muktoBanglaDbContext.BlogPosts.ToListAsync(); 
         }
 
         public Task<BlogPost?> GetSingelBlogPostAsync(Guid Id)

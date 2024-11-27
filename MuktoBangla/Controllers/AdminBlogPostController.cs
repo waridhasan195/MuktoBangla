@@ -66,5 +66,16 @@ namespace MuktoBangla.Controllers
 
             return View(addBlogPostRequest);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewBlogPostList()
+        {
+            var BlogPostList = await blogPostRepository.GetAllBlogPostAssync();
+            if (BlogPostList != null)
+            {
+                return View(BlogPostList);
+            }
+            return View(BlogPostList);
+        }
     }
 }
