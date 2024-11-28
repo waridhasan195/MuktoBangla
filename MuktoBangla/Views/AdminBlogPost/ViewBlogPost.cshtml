@@ -1,0 +1,60 @@
+﻿@model MuktoBangla.Model.Domain.BlogPost
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="main-container">
+    @if(Model != null)
+    {
+        <div class="container-box">
+            <div class="blogInfo">
+                <div class="author-date">
+                    <h3>@Model.Author</h3>
+                    <p>@Model.PublishDate.ToShortDateString()</p>
+                </div>
+                <div class="Heading-Description">
+                    <h3>@Model.Heading</h3>
+                    <p class="Guid">@Model.ID</p>
+                    <div class="Tags">
+                        @foreach(var tag in Model.Tags)
+                        {
+                            <span class="badge badge-danger">@tag.Name</span>
+                        }
+                        
+                    </div>
+                </div>
+                <div class="content">
+                    @Model.Description
+                </div>
+
+            </div>
+            <div class="Engagement">
+                <div><i class="fa-solid fa-thumbs-up fa-2xl"> 120</i></div>
+                <div><i class="fa-solid fa-comment fa-2xl"> 10</i></div>
+                <div><i class="fa-solid fa-share fa-2xl"> 21</i></div>
+
+            </div>
+            <div class="commentBox">
+                <div class="commentBox">
+                    <textarea class="form-control" rows="3" id="comment" style="width: 40%;" placeholder="Comment"></textarea>
+                </div>
+                <br>
+                <button class="d-flex justify-content-center" type="submit">Comment</button>
+            </div>
+            <ejs-fab id="fab" position=MiddleRight iconCss="e-icons e-plus" content="Add New Blog"></ejs-fab>
+        </div>
+    }
+    else{
+        <h3>Blog Not Found</h3>
+    }
+</div>
+
+<script>
+    document.getElementById("fab").addEventListener('click', function () {
+                        location.href = '@Url.Action("AddPost", "AdminBlogPost")';
+                    });
+
+
+</script>

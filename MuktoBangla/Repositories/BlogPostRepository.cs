@@ -30,9 +30,9 @@ namespace MuktoBangla.Repositories
             return await muktoBanglaDbContext.BlogPosts.Include(x=>x.Tags).ToListAsync(); 
         }
 
-        public Task<BlogPost?> GetSingelBlogPostAsync(Guid Id)
+        public async Task<BlogPost?> GetSingelBlogPostAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            return await muktoBanglaDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x=>x.ID == Id);
         }
 
         public Task<BlogPost?> UpdateBlogPostAsync(BlogPost blogPost)

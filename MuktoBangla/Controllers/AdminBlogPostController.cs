@@ -77,5 +77,17 @@ namespace MuktoBangla.Controllers
             }
             return View(BlogPostList);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewBlogPost(Guid Id)
+        {
+            var blog = await blogPostRepository.GetSingelBlogPostAsync(Id);
+            if (blog != null)
+            {
+                return View(blog);
+            }
+            return View(null);
+        }
+
     }
 }

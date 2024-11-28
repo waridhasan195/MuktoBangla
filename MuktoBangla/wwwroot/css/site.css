@@ -147,3 +147,62 @@ body {
 .addpostHeader {
     color: rgb(70, 70, 70);
 }
+
+
+
+.main-container {
+    padding: 50px 15%;
+    padding-bottom: 200px;
+}
+
+
+    .main-container .container-box .blogInfo .author-date {
+        text-align: end;
+        padding: 10px;
+    }
+
+    .main-container .container-box .blogInfo .Heading-Description {
+        padding: 10px;
+    }
+
+        .main-container .container-box .blogInfo .Heading-Description .Guid {
+            color: rgb(29, 29, 29);
+            opacity: 50%;
+        }
+
+        .main-container .container-box .blogInfo .Heading-Description p {
+            color: rgb(29, 29, 29);
+        }
+
+    .main-container .container-box .blogInfo .content {
+        padding: 10px;
+        text-justify: auto;
+        color: rgb(29, 29, 29);
+    }
+
+    .main-container .container-box .Engagement {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+        gap: 10px;
+        text-align: center;
+        font-size: 10px;
+        padding: 20px;
+        background-color: rgb(245, 245, 245);
+    }
+
+    .main-container .container-box .commentBox {
+        padding: 00px;
+        padding-top: 50px;
+    }
+
+        .main-container .container-box .commentBox textarea {
+            padding: 10px;
+            width: 500px;
+            background-color: rgb(245, 245, 245);
+        }
+
+        .main-container .container-box .commentBox button {
+            padding: 10px;
+            align-items: end;
+            position: absolute;
+        }
