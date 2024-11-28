@@ -27,7 +27,7 @@ namespace MuktoBangla.Repositories
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPostAssync()
         {
-            return await muktoBanglaDbContext.BlogPosts.ToListAsync(); 
+            return await muktoBanglaDbContext.BlogPosts.Include(x=>x.Tags).ToListAsync(); 
         }
 
         public Task<BlogPost?> GetSingelBlogPostAsync(Guid Id)
