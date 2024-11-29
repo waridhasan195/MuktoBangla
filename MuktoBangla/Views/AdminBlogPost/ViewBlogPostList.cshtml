@@ -23,9 +23,8 @@
                         <p>@blog.PublishDate.ToShortDateString()</p>
                     </div>
                     <div class="Title">
-                        <h2>@blog.Heading</h2>
-                        <p>@blog.ShortDescription</p>
-                        
+                            <h2>@blog.Heading.Substring(0, Math.Min(blog.Heading.Length, 40))</h2>
+                            <p class="shortDescriptionLimitText">@blog.ShortDescription.Substring(0, Math.Min(blog.ShortDescription.Length, 255))</p>
                     </div>
 
                     <div class="Tags">
@@ -61,3 +60,4 @@
 
 
 </script>
+

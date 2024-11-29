@@ -52,7 +52,7 @@
                             <ejs-datepicker id="datepicker" ejs-for="PublishDate" width="130"></ejs-datepicker>
                         </div>
                     </div>
-                    <div class="control-section ">
+                    <div class="control-section">
                         <div class="control_wrapper_Tag TextBox-control-section container">
                             <ejs-checkbox id="default" label="Is Visiblle ?" checked="true" ejs-for="Visible"></ejs-checkbox>
                             <span asp-validation-for="Visible" class="text-danger" style="font-size:small"></span>
@@ -60,11 +60,15 @@
                     </div>
 
                     <div class="control-section mb-3">
-                        <div class="control_wrapper TextArea-control-section container">
-                            <ejs-textarea width="390" id="smaller-textbox6" ejs-for="Description" placeholder="Content" cssClass="e-small" floatLabelType="Auto"></ejs-textarea>
+                        <div class="control_wrapper TextArea-control-section">
+                            <ejs-richtexteditor class="shadow p-3 mb-5 bg-white rounded" id="editor" ejs-for="Description" type="MultiRow">
+                                <e-content-template></e-content-template>
+                            </ejs-richtexteditor>
                             <span asp-validation-for="Description" class="text-danger" style="font-size:small"></span>
                         </div>
+                        
                     </div>
+
 
                     <div class="control-section mb-3" style="width:300px">
                         <div class="control_wrapper TextArea-control-section container">
