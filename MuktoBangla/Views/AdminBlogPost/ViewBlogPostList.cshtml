@@ -1,8 +1,19 @@
-﻿@model List<MuktoBangla.Model.Domain.BlogPost>
+﻿@using MuktoBangla.Model.Pagination
+@model List<MuktoBangla.Model.Domain.BlogPost>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Blogs";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <div class="Main-container">
     <div class="Heading">
@@ -17,32 +28,37 @@
                 <a class="text-decoration-none" asp-area="" asp-controller="AdminBlogPost" asp-action="ViewBlogPost" asp-route-id="@blog.ID">
 
 
-                <div class="box">
-                    <div class="Author-date d-flex justify-content-between">
-                        <h3>@blog.Author</h3>
-                        <p>@blog.PublishDate.ToShortDateString()</p>
-                    </div>
-                    <div class="Title">
+                    <div class="box">
+                        <div class="Author-date d-flex justify-content-between">
+                            <h3>@blog.Author</h3>
+                            <p>@blog.PublishDate.ToShortDateString()</p>
+                        </div>
+                        <div class="Title">
                             <h2>@blog.Heading.Substring(0, Math.Min(blog.Heading.Length, 40))</h2>
                             <p class="shortDescriptionLimitText">@blog.ShortDescription.Substring(0, Math.Min(blog.ShortDescription.Length, 255))</p>
-                    </div>
+                        </div>
 
-                    <div class="Tags">
-                        @foreach(var tag in blog.Tags){
+                        <div class="Tags">
+                            @foreach(var tag in blog.Tags)
+                            {
                                 <span class="badge badge-danger">@tag.Name</span>
-                        }
+                            }
+                        </div>
+
+                        <div class="Engagement">
+                            <div><i class="fa-solid fa-thumbs-up fa-xl">  120</i></div>
+                            <div><i class="fa-solid fa-comment fa-xl">  10</i></div>
+                            <div><i class="fa-solid fa-share fa-xl">  21</i></div>
+                        </div>
                     </div>
-                    
-                    <div class="Engagement">
-                        <div><i class="fa-solid fa-thumbs-up fa-xl">  120</i></div>
-                        <div><i class="fa-solid fa-comment fa-xl">  10</i></div>
-                        <div><i class="fa-solid fa-share fa-xl">  21</i></div>
-                    </div>
-                </div>
                 </a>
             }
+            
         </div>
+
+        <partial name="_Pager" model="@pager"></partial>
     }
+
     
     else{
         <h3>Not any Blogs at this time, addOne...</h3>
@@ -57,7 +73,5 @@
     document.getElementById("fab").addEventListener('click', function () {
                         location.href = '@Url.Action("AddPost", "AdminBlogPost")';
                     });
-
-
 </script>
 

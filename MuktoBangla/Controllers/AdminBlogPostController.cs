@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MuktoBangla.Model.Domain;
+using MuktoBangla.Model.Pagination;
 using MuktoBangla.Model.ViewModels;
 using MuktoBangla.Repositories;
 
@@ -68,12 +69,26 @@ namespace MuktoBangla.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewBlogPostList()
+        public async Task<IActionResult> ViewBlogPostList(int page = 1)
         {
-            var BlogPostList = await blogPostRepository.GetAllBlogPostAssync();
+            
+             var BlogPostList = await blogPostRepository.GetAllBlogPostAssync();
             if (BlogPostList != null)
             {
-                return View(BlogPostList);
+                const int pageSize = 2;
+                if (page < 1)
+                {
+                    page = 1;
+                }
+
+                int recsCount = BlogPostList.Count();
+                var pager = new Pager(recsCount, page, pageSize);
+                int recSkip = (page - 1) * pageSize;
+                var data = BlogPostList.Skip(recSkip).Take(pager.PageSize).ToList();
+                this.ViewBag.Pager = pager;
+
+                return View(data);
+                //return View(BlogPostList);
             }
             return View(BlogPostList);
         }
