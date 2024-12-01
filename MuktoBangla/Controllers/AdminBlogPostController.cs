@@ -61,7 +61,7 @@ namespace MuktoBangla.Controllers
                 var addpostResult = await blogPostRepository.AddBlogPostAsync(addpost);
                 if (addpostResult != null)
                 {
-                    return View(addBlogPostRequest);
+                return RedirectToAction("ViewBlogPostList");
                 }
           
             return View(addBlogPostRequest);
@@ -74,7 +74,7 @@ namespace MuktoBangla.Controllers
              var BlogPostList = await blogPostRepository.GetAllBlogPostAssync();
             if (BlogPostList != null)
             {
-                const int pageSize = 2;
+                const int pageSize = 10;
                 if (page < 1)
                 {
                     page = 1;
@@ -99,6 +99,33 @@ namespace MuktoBangla.Controllers
             if (blog != null)
             {
                 return View(blog);
+            }
+            return View(null);
+        }
+
+        [HttpGet]
+        public async  Task<IActionResult> EditPostAsync(Guid Id)
+        {
+            var blogPost = await blogPostRepository.GetSingelBlogPostAsync(Id);
+            var tagDomainModel = await tagRepository.GetAllTagsAsync();
+
+            if(blogPost != null)
+            {
+                var model = new EditBlogPostRequest
+                {
+                    Id = blogPost.ID,
+                    Heading = blogPost.Heading,
+                    ShortDescription = blogPost.ShortDescription,
+                    Description = blogPost.Description,
+                    Author = blogPost.Author,
+                    PageTitle = blogPost.PageTitle,
+                    UrlHandle = blogPost.UrlHandle,
+                    PublishDate = blogPost.PublishDate, 
+                    Visible = blogPost.Visible,
+                    Tags = tagDomainModel.Select(x=> new SelectListItem { Text=x.Name, Value=x.Id.ToString()}),
+                    SelectedTags = blogPost.Tags.Select(x=>x.Id.ToString()).ToArray()
+                };
+                return View(model);
             }
             return View(null);
         }

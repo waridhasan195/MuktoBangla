@@ -17,6 +17,20 @@
                 <div class="Heading-Description">
                     <h3>@Model.Heading</h3>
                     <p class="Guid">@Model.ID</p>
+                    <div class="ActionMenu pb-2">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <ion-icon name="settings-outline"></ion-icon>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost" asp-action="EditPost" asp-route-Id="@Model.ID">Edit</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="Tags">
                         @foreach(var tag in Model.Tags)
                         {
