@@ -64,7 +64,6 @@ namespace MuktoBangla.Controllers
                     return View(addBlogPostRequest);
                 }
           
-
             return View(addBlogPostRequest);
         }
 
@@ -85,7 +84,7 @@ namespace MuktoBangla.Controllers
                 var pager = new Pager(recsCount, page, pageSize);
                 int recSkip = (page - 1) * pageSize;
                 var data = BlogPostList.Skip(recSkip).Take(pager.PageSize).ToList();
-                this.ViewBag.Pager = pager;
+                ViewBag.Pager = pager;
 
                 return View(data);
                 //return View(BlogPostList);
@@ -103,6 +102,5 @@ namespace MuktoBangla.Controllers
             }
             return View(null);
         }
-
     }
 }
