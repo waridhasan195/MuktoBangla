@@ -157,6 +157,7 @@ namespace MuktoBangla.Controllers
             }
             updatePost.Tags = SelectedTags;
             updatePost = await blogPostRepository.UpdateBlogPostAsync(updatePost);
+         
             if(updatePost != null)
             {
                 return RedirectToAction("ViewBlogPostList");
@@ -165,6 +166,18 @@ namespace MuktoBangla.Controllers
             {
                 return View(editBlogPostRequest);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(Guid Id)
+        {
+            var deletePost = await blogPostRepository.DeleteBlogPostAsync(Id);
+            if (deletePost != null)
+            {
+                return RedirectToAction("ViewBlogPostList");
+            }
+
+            return RedirectToAction("ViewBlogPostList");
         }
     }
 }

@@ -21,9 +21,19 @@ namespace MuktoBangla.Repositories
             return blogPost;
         }
 
-        public Task<BlogPost?> DeleteBlogPostAsync(Guid Id)
+        public async Task<BlogPost?> DeleteBlogPostAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var deletedItem = await muktoBanglaDbContext.BlogPosts.FindAsync(Id);
+            if (deletedItem != null)
+            {
+                muktoBanglaDbContext.BlogPosts.Remove(deletedItem);
+                await muktoBanglaDbContext.SaveChangesAsync();
+                return deletedItem;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPostAssync()
