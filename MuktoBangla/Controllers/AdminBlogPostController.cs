@@ -104,12 +104,12 @@ namespace MuktoBangla.Controllers
         }
 
         [HttpGet]
-        public async  Task<IActionResult> EditPostAsync(Guid Id)
+        public async Task<IActionResult> EditPostAsync(Guid Id)
         {
             var blogPost = await blogPostRepository.GetSingelBlogPostAsync(Id);
             var tagDomainModel = await tagRepository.GetAllTagsAsync();
 
-            if(blogPost != null)
+            if (blogPost != null)
             {
                 var model = new EditBlogPostRequest
                 {
@@ -120,14 +120,51 @@ namespace MuktoBangla.Controllers
                     Author = blogPost.Author,
                     PageTitle = blogPost.PageTitle,
                     UrlHandle = blogPost.UrlHandle,
-                    PublishDate = blogPost.PublishDate, 
+                    PublishDate = blogPost.PublishDate,
                     Visible = blogPost.Visible,
-                    Tags = tagDomainModel.Select(x=> new SelectListItem { Text=x.Name, Value=x.Id.ToString()}),
-                    SelectedTags = blogPost.Tags.Select(x=>x.Id.ToString()).ToArray()
+                    Tags = tagDomainModel.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }),
+                    SelectedTags = blogPost.Tags.Select(x => x.Id.ToString()).ToArray()
                 };
                 return View(model);
             }
             return View(null);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPostAsync(EditBlogPostRequest editBlogPostRequest)
+        {
+            var updatePost = new BlogPost
+            {
+                ID = editBlogPostRequest.Id,
+                Heading = editBlogPostRequest.Heading,
+                ShortDescription = editBlogPostRequest.ShortDescription,
+                Description = editBlogPostRequest.Description,
+                Author = editBlogPostRequest.Author,
+                PageTitle = editBlogPostRequest.PageTitle,
+                UrlHandle = editBlogPostRequest.UrlHandle,
+                Visible = editBlogPostRequest.Visible,
+
+            };
+            var SelectedTags = new List<Tag>();
+            foreach(var tag in editBlogPostRequest.SelectedTags)
+            {
+                var tagIdAsGuid = Guid.Parse(tag);
+                var existingTag = await tagRepository.GetSingelTagAsync(tagIdAsGuid);
+                if (existingTag != null)
+                {
+                    SelectedTags.Add(existingTag);
+                }
+            }
+            updatePost.Tags = SelectedTags;
+            updatePost = await blogPostRepository.UpdateBlogPostAsync(updatePost);
+            if(updatePost != null)
+            {
+                return RedirectToAction("ViewBlogPostList");
+            }
+            else
+            {
+                return View(editBlogPostRequest);
+            }
         }
     }
 }

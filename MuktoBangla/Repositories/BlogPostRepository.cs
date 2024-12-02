@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MuktoBangla.Data;
 using MuktoBangla.Model.Domain;
+using Syncfusion.EJ2.PdfViewer;
 
 namespace MuktoBangla.Repositories
 {
@@ -35,9 +36,24 @@ namespace MuktoBangla.Repositories
             return await muktoBanglaDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x=>x.ID == Id);
         }
 
-        public Task<BlogPost?> UpdateBlogPostAsync(BlogPost blogPost)
+        public async Task<BlogPost?> UpdateBlogPostAsync(BlogPost blogPost)
         {
-            throw new NotImplementedException();
+            var existingBlog = await muktoBanglaDbContext.BlogPosts.Include(x=>x.Tags).FirstOrDefaultAsync(x=>x.ID==blogPost.ID);
+            if(existingBlog != null)
+            {
+                //existingBlog.ID = blogPost.ID;
+                existingBlog.Heading = blogPost.Heading;
+                existingBlog.ShortDescription = blogPost.ShortDescription;
+                existingBlog.Description = blogPost.Description;
+                existingBlog.Author = blogPost.Author;
+                existingBlog.PageTitle = blogPost.PageTitle;
+                existingBlog.UrlHandle = blogPost.UrlHandle;
+                existingBlog.Visible = blogPost.Visible;
+                existingBlog.Tags = blogPost.Tags;
+                await muktoBanglaDbContext.SaveChangesAsync();
+                return existingBlog;
+            }
+            return null;
         }
     }
 }

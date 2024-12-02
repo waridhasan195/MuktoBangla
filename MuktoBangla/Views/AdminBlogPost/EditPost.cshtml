@@ -9,7 +9,7 @@
             <div class="col col-lg-2">
             </div>
 
-            <form asp-controller="AdminBlogPost" asp-action="AddPost" method="post">
+            <form asp-controller="AdminBlogPost" asp-action="EditPost" method="post">
                 <div class="col col-lg-6" style="background-color:white">
                     <div>
                         <h4 class="addpostHeader">Update Your Blog</h4>
@@ -48,7 +48,8 @@
                     </div>
                     <div class="control-section mb-3">
                         <div class="control_wrapper_Tag TextBox-control-section container">
-                            <ejs-datepicker id="datepicker" ejs-for="PublishDate" width="130"></ejs-datepicker>
+                        <p>@Model.PublishDate.ToShortDateString().ToString()</p>
+                            
                         </div>
                     </div>
                     <div class="control-section">
